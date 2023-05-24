@@ -72,7 +72,7 @@ char mapfase2[SCREEN_HEIGHT_FASE2][SCREEN_WIDTH_FASE2] = {
     "*                            *                             *",
     "*                            *                             *",
     "*                            *                             *",
-    "*							  *	   				            *",
+    "*		 		  *	   		        *",
     "****************************D*D*****************************",
     "*                            *                             *",
     "************************************************************",
@@ -86,8 +86,8 @@ typedef struct {
 
 Door doors[] = {
     {0, 13, 1, 1},  //Localização da porta na fase 1
- 	{29, 27, 30, 30}, //Localização da porta na fase 2
-	{31, 27, 30, 30}, //Localização da porta na fase 2
+    {29, 27, 30, 30}, //Localização da porta na fase 2
+    {31, 27, 30, 30}, //Localização da porta na fase 2
 };
 
 int numDoors = sizeof(doors) / sizeof(doors[0]);
@@ -99,7 +99,6 @@ typedef struct {
 
 KeyPosition keyPositions[] = {
     {1, 9, 1},  //Localização da chave na fase 1
-	{}
 };
 
 int numKeys = sizeof(keyPositions) / sizeof(keyPositions[0]);
