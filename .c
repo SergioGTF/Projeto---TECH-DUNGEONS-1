@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <windows.h>
 #include <locale.h>
 
@@ -9,7 +8,6 @@
 #define TECLA_BAIXO 's'
 #define TECLA_DIREITA 'd'
 #define CHAVE_INTERATIVA 'i'
-#define TELEPORTE '>'
 
 #define LARGURA_TELA_FASE1 15
 #define ALTURA_TELA_FASE1 15
@@ -251,25 +249,6 @@ void desenhar_vida() {
         printf("&");
     }
     printf("\n");
-}
-
-void teleport() {
-	int i, j;
-    if (fase_atual == 2) {
-        for (i = 0; i < numPortas; i++) {
-            if (jogador_x == portas[i].x && jogador_y == portas[i].y && portas[i].portaID == TELEPORTE) {
-                // Encontra o teletransporte correspondente
-                for (j = 0; j < numPortas; j++) {
-                    if (j != i && portas[j].portaID == TELEPORTE) {
-                        jogador_x = portas[j].x;
-                        jogador_y = portas[j].y;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
 }
 
 void mostrar_menu() {
