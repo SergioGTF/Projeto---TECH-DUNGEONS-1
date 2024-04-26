@@ -125,10 +125,9 @@ void movimento_esquerda_fase1() {
         int next_x = jogador_x - 1;
         int next_y = jogador_y;
 
-        // Verifica se o próximo movimento é para uma posição ocupada por uma porta trancada
         for (i = 0; i < numPortas; i++) {
             if (next_x == portas[i].x && next_y == portas[i].y && portas[i].estaTrancada) {
-                return; // Impede o movimento se a porta estiver trancada
+                return; 
             }
         }
 
@@ -194,7 +193,6 @@ void interacao() {
         }
     }
 
-    // Verifica se o personagem estÃ¡ em uma posiÃ§Ã£o que contÃ©m uma porta aberta
     for (i = 0; i < numPortas; i++) {
         if (jogador_x == portas[i].x && jogador_y == portas[i].y && !portas[i].estaTrancada) {
             return;
@@ -217,7 +215,7 @@ void check_spike_damage() {
                 espinhos_tocados = 0;
             }
             else {
-                printf("__________\n");
+                printf(" ____________________________\n");
                 printf("|          GAME OVER!        |\n");
                 printf("|Você reiniciou o mapa 1 vez!|\n");
                 printf("------------------------------\n");
@@ -246,7 +244,7 @@ void reset_map(char map[ALTURA_TELA_FASE1][LARGURA_TELA_FASE1]) {
     jogador_vida = 3;
 }
 
-void draw_health() {
+void desenhar_vida() {
     printf("Vida: ");
     int i;
     for (i = 0; i < jogador_vida; i++) {
@@ -274,97 +272,52 @@ void teleport() {
     }
 }
 
-void show_menu() {
-#define START_KEY '1'
-#define TUTORIAL_KEY '2'
-#define QUIT_KEY '3'
+void mostrar_menu() {
+#define INICIAR '1'
+#define TUTORIAL '2'
+#define SAIR '3'
 
 	system("cls");
- 	printf(" \n");
  	printf(" \n");
     printf(" |TTTTT|  |EEEEE|  |CCCCC|  |H| |H|  |DDDD|   |U| |U|  |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|\n");
 	printf("   \\T/    |E|      |C|      |H|_|H|  |D|  D|  |U| |U|  |NN||N|  |G|      |E|     |O| |O| |NN||N| |S|     \n");
 	printf("   |T|    |EEEE|   |C|      |HHHHH|  |D|  D|  |U| |U|  |N|N|N|  |G| GG|  |EEEE|  |O| |O| |N|N|N| |SSSSS| \n");
 	printf("   |T|    |E|      |C|      |H| |H|  |D|  D|  |U| |U|  |N||NN|  |G|  G|  |E|     |O| |O| |N||NN|     |S|  \n");
 	printf("   |T|    |EEEEE|  |CCCCC|  |H| |H|  |DDDD|    |UUU|   |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|  \n");
-	printf(" \n");
-	printf("             \n");
-	printf("            _ \n");
     printf("           |1| Iniciar jogo\n");
- 	printf("            - \n");
-	printf("            _ \n");
     printf("           |2| Tutorial\n");
- 	printf("            - \n");
-	printf("            _ \n");
 	printf("           |3|  Sair\n");
- 	printf("            - \n");
 }
 
 
 void show_tutorial() {
 	system("cls");
     printf("                            === TUTORIAL ===\n");
- 	printf("             \n");
 	printf("  O jogo e uma aventura/quebra-cabeca onde o objetivo e passar por tres niveis.\n");
 	printf("  Em cada nivel, voce deve se mover para recolher uma chave para abrir uma \n porta fechada.\n");
-	printf("             \n");
     printf("                 Voce pode usar os seguintes comandos:\n");
-    printf("  _\n");
 	printf(" |W | = Mover uma unidade para cima.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |A | = Move uma unidade para a esquerda.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |S | = Mover uma unidade para baixo.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |D | = Move uma unidade para a direita.\n");
-	printf(" ---\n");
-	printf("  _\n");
    	printf(" |I | = Interagir com um objeto.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |& | = Simbolo que representa o jogador.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |* | = Simbolo que representa uma parede, o jogador ao se movimentar nÃ£o pode passar pela parede.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |@ | = Simbolo que representa a chave para abrir a porta para finalizar a fase, a porta abre no momento que o jogador interage com a chave.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |D | =  Simbolo que representa a porta fechada.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |= | =  Simbolo que representa a porta aberta quando o jogador interage com a chave.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |O | = Simbolo que representa um botao que o usuario pode interagir, o botao fica no chao e o jogador deve ficar em cima dele para poder interagir.\n");
-	printf(" ---\n");
-	printf("  _\n");
 	printf(" |# | =  Simbolo que representa um espinho. A fase e reiniciada quando o jogador toca no espinho, caso a fase seja reiniciada tres vezes, o jogo volta para o menu principal.\n");
-    printf(" ---\n");
-	printf("  _\n");
 	printf(" |> | = Simbolo que representa um teletransporte. O teletransporte sempre deve vir em pares, quando o jogador toca em um ele e transportado para o outro e vice-versa.\n");
-	printf(" ---\n");
-	printf("  _\n");
-	printf(" |Â¬ | =  Simbolo que representa o monstro nivel 1. O mostro tem um movimento aleatÃ³rio, logo, ele movimenta um bloco para cima ou para direita ou para esquerda ou para baixo. O mostro sempre faz uma movimentaÃ§Ã£o depois do usuario se movimentar ou interagir com um objeto.\n");
-	printf(" ---\n");
-	printf("  _\n");
-	printf(" |K | =  Simbolo que representa o monstro nivel 2. O monstro nivel dois tem uma inteligÃªncia de se movimentar na direÃ§Ã£o do jogador. O monstro nÃ£o precisa saber desviar de obstaculos, ele sempre vai andar em linha reta em direÃ§ao do jogador.\n");
-	printf(" ---\n");
+	printf(" |¬ | =  Simbolo que representa o monstro nivel 1. O mostro tem um movimento aleatório, logo, ele movimenta um bloco para cima ou para direita ou para esquerda ou para baixo. O mostro sempre faz uma movimentação depois do usuario se movimentar ou interagir com um objeto.\n");
+	printf(" |K | =  Simbolo que representa o monstro nivel 2. O monstro nivel dois tem uma inteligência de se movimentar na direção do jogador. O monstro não precisa saber desviar de obstaculos, ele sempre vai andar em linha reta em direÃ§ao do jogador.\n");
 	printf("                    Pressione qualquer tecla para continuar...\n");
     getch();
 }
 
 void game_loop() {
-    setlocale(LC_ALL, "portuguese");
+	int y, x, k;
     while (jogo_em_execucao) {
-        if (jogador_vida <= 0) {
-            reset_game();
-        }
-        int x, y, k;
         if (fase_atual == 1) {
             for (y = 0; y < ALTURA_TELA_FASE1; y++) {
                 for (x = 0; x < LARGURA_TELA_FASE1; x++) {
@@ -399,8 +352,7 @@ void game_loop() {
                 printf("\n");
             }
         }
-
-        draw_health();
+        desenhar_vida();
 
         char input = getch();
         switch (input) {
@@ -422,17 +374,19 @@ void game_loop() {
             default:
                 break;
         }
-
-        check_spike_damage();
+		
+		check_spike_damage();
         teleport(); 
 
         system("cls");
         SetConsoleCursorPosition(console, (COORD){0, 0});
-    } 
+
+    }
 }
 
 
 int main() {
+	setlocale(LC_ALL, "Portuguese");
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(console, 1); 
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -444,17 +398,18 @@ int main() {
     system("cls");
 
     while (jogo_em_execucao) {
-        show_menu();
+        mostrar_menu();
         char choice = getch();
 
         switch (choice) {
-            case START_KEY:
+            case INICIAR:
+                fase_atual = 1;
                 game_loop();
                 break;
-            case TUTORIAL_KEY:
+            case TUTORIAL:
                 show_tutorial();
                 break;
-            case QUIT_KEY:
+            case SAIR:
                 jogo_em_execucao = 0;
                 break;
 
