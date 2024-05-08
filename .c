@@ -8,33 +8,12 @@
 #define TECLA_BAIXO 's'
 #define TECLA_DIREITA 'd'
 #define CHAVE_INTERATIVA 'i'
-#define TELEPORTE '>'
 
 #define LARGURA_TELA_FASE1 15
 #define ALTURA_TELA_FASE1 15
 
 #define LARGURA_TELA_FASE2 30
 #define ALTURA_TELA_FASE2 30
-
-#define LARGURA_TELA_FASE3 60
-#define ALTURA_TELA_FASE3 60
-
-void movimento_cima_fase1();
-void movimento_esquerda_fase1();
-void movimento_baixo_fase1();
-void movimento_direita_fase1();
-void interacao_fase1();
-void checa_dano_espinho_fase1();
-void game_loop_fase1();
-
-void movimento_cima_fase2();
-void movimento_esquerda_fase2();
-void movimento_baixo_fase2();
-void movimento_direita_fase2();
-void interacao_fase2();
-void checa_dano_espinho_fase2();
-void game_loop_fase2();
-
 
 int espinhos_tocados = 0;
 int jogador_x = LARGURA_TELA_FASE1 / 2;
@@ -64,87 +43,81 @@ char mapa_fase1[LARGURA_TELA_FASE1][ALTURA_TELA_FASE1] = {
 
 int mapa_fase2[LARGURA_TELA_FASE2][ALTURA_TELA_FASE2] = {
    {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
-   {'*',' ',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ','*',' ',' ','*',' ',' ','*',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
-   {'*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',' ','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ','*'},
-   {'*',' ',' ',' ',' ',' ','*',' ',' ',' ',' ',' ','*',' ','*','*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
+   {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
    {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
 };
 
 typedef struct {
     int x, y;
-    int portaID;
-    int estaTrancada;
-} Porta;
+    int portaIDfase1;
+    int estaTrancadafase1;
+} PortaFase1;
 
-Porta portas[] = {
+PortaFase1 portas_fase1[] = {
     {0, 13, 1, 1},  
 };
 
-int numPortas = sizeof(portas) / sizeof(portas[0]);
+int numPortasFase1 = sizeof(portas_fase1) / sizeof(portas_fase1[0]);
 
 typedef struct {
     int x, y;
-    int chaveID;
-} PosicaoChave;
+    int chaveIDfase1;
+} PosicaoChaveFase1;
 
-PosicaoChave posicoes_chaves[] = {
-    {1, 9, 1},  
+PosicaoChaveFase1 posicoes_chaves_fase1[] = {
+    {1, 21, 1},  
 };
 
-int numChaves = sizeof(posicoes_chaves) / sizeof(posicoes_chaves[0]);
+int numChavesFase1 = sizeof(posicoes_chaves_fase1) / sizeof(posicoes_chaves_fase1[0]);
 
-PosicaoChave posicoes_chaves_fase2[] = {
-    {13, 1, 1},  
+typedef struct {
+    int x, y;
+    int chaveIDfase2;
+} PosicaoChaveFase2;
+
+PosicaoChaveFase2 posicoes_chaves_fase2[] = {
+    {1, 1, 1},  
 };
 int numChavesFase2 = sizeof(numChavesFase2) / sizeof(posicoes_chaves_fase2[0]);
 
-Porta portas_fase2[] = {
-    {16, 29, 1, 1},   
+typedef struct {
+    int x, y;
+    int portaIDfase2;
+    int estaTrancadafase2;
+} PortaFase2;
+
+PortaFase2 portas_fase2[] = {
+    {29, 29, 1, 1},   
 };
 int numPortasFase2 = sizeof(portas_fase2) / sizeof(portas_fase2[0]);
 
-typedef struct {
-    int x, y;
-    int teleporteID;
-} PosicaoTeleporte;
-
-PosicaoTeleporte teletransportes[] = {
-    {5, 5, 1},  
-    {10, 10, 1},
-};
-
-int numTeletransportes = sizeof(teletransportes) / sizeof(teletransportes[0]);
-
 HANDLE console;
-
-void reset_map(char map[ALTURA_TELA_FASE1][LARGURA_TELA_FASE1]);
-void reset_map_fase2(char map[ALTURA_TELA_FASE2][LARGURA_TELA_FASE2]);
-void desenhar_vida();
 
 void movimento_cima_fase1() {
 	int i;
@@ -152,8 +125,8 @@ void movimento_cima_fase1() {
         int next_x = jogador_x;
         int next_y = jogador_y - 1;
 
-        for (i = 0; i < numPortas; i++) {
-            if (next_x == portas[i].x && next_y == portas[i].y && portas[i].estaTrancada) {
+        for (i = 0; i < numPortasFase1; i++) {
+            if (next_x == portas_fase1[i].x && next_y == portas_fase1[i].y && portas_fase1[i].estaTrancadafase1) {
                 return; 
             }
         }
@@ -168,8 +141,8 @@ void movimento_esquerda_fase1() {
         int next_x = jogador_x - 1;
         int next_y = jogador_y;
 
-        for (i = 0; i < numPortas; i++) {
-            if (next_x == portas[i].x && next_y == portas[i].y && portas[i].estaTrancada) {
+        for (i = 0; i < numPortasFase1; i++) {
+            if (next_x == portas_fase1[i].x && next_y == portas_fase1[i].y && portas_fase1[i].estaTrancadafase1) {
                 return; 
             }
         }
@@ -192,14 +165,14 @@ void movimento_direita_fase1() {
 
 
 
-void removePorta(int portaID) {
+void removePortaFase1(int portaIDfase1) {
     int i, j;
-    for (i = 0; i < numPortas; i++) {
-        if (portas[i].portaID == portaID) {
-            for (j = i; j < numPortas - 1; j++) {
-                portas[j] = portas[j + 1];
+    for (i = 0; i < numPortasFase1; i++) {
+        if (portas_fase1[i].portaIDfase1 == portaIDfase1) {
+            for (j = i; j < numPortasFase1 - 1; j++) {
+                portas_fase1[j] = portas_fase1[j + 1];
             }
-            numPortas--;
+            numPortasFase1--;
             break;
         }
     }
@@ -208,25 +181,25 @@ void removePorta(int portaID) {
 void interacao() {
     int i;
 
-    for (i = 0; i < numChaves; i++) {
-        if (jogador_x == posicoes_chaves[i].x && jogador_y == posicoes_chaves[i].y) {
-            printf("Voce pegou a chave %d!\n", posicoes_chaves[i].chaveID);
+    for (i = 0; i < numChavesFase1; i++) {
+        if (jogador_x == posicoes_chaves_fase1[i].x && jogador_y == posicoes_chaves_fase1[i].y) {
+            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase1[i].chaveIDfase1);
             Sleep(500);
 
             int j;
-            for (j = i; j < numChaves - 1; j++) {
-                posicoes_chaves[j] = posicoes_chaves[j + 1];
+            for (j = i; j < numChavesFase1 - 1; j++) {
+                posicoes_chaves_fase1[j] = posicoes_chaves_fase1[j + 1];
             }
-            numChaves--;
+            numChavesFase1--;
 
             int k;
-            for (k = 0; k < numPortas; k++) {
-                if (posicoes_chaves[i].chaveID == portas[k].portaID) {
-                    portas[k].estaTrancada = 0; 
-                    printf("Você destrancou a porta com a chave %d!\n", posicoes_chaves[i].chaveID);
+            for (k = 0; k < numPortasFase1; k++) {
+                if (posicoes_chaves_fase1[i].chaveIDfase1 == portas_fase1[k].portaIDfase1) {
+                    portas_fase1[k].estaTrancadafase1 = 0; 
+                    printf("Você destrancou a porta com a chave %d!\n", posicoes_chaves_fase1[i].chaveIDfase1);
                     Sleep(500);
 
-                    mapa_fase1[portas[k].y][portas[k].x] = '=';
+                    mapa_fase1[portas_fase1[k].y][portas_fase1[k].x] = '=';
                     return;
                 }
             }
@@ -289,7 +262,7 @@ void desenhar_vida() {
 }
 
 int verificar_chegada_porta_transicao() {
-    if (fase_atual == 1 && jogador_x == 1 && jogador_y == 9) {
+    if (fase_atual == 1 && jogador_x == 0 && jogador_y == 13) {
         return 1; 
     }
     return 0; 
@@ -306,8 +279,8 @@ void game_loop_fase1() {
                         printf("&");
                     } else {
                         int containsKey = 0;
-                        for (k = 0; k < numChaves; k++) {
-                            if (x == posicoes_chaves[k].x && y == posicoes_chaves[k].y) {
+                        for (k = 0; k < numChavesFase1; k++) {
+                            if (x == posicoes_chaves_fase1[k].x && y == posicoes_chaves_fase1[k].y) {
                                 containsKey = 1;
                                 break;
                             } 
@@ -367,7 +340,7 @@ void movimento_cima_fase2() {
         int next_y = jogador_y - 1;
 
         for (i = 0; i < numPortasFase2; i++) {
-            if (next_x == portas_fase2[i].x && next_y == portas_fase2[i].y && portas_fase2[i].estaTrancada) {
+            if (next_x == portas_fase2[i].x && next_y == portas_fase2[i].y && portas_fase2[i].estaTrancadafase2) {
                 return; 
             }
         }
@@ -383,7 +356,7 @@ void movimento_esquerda_fase2() {
         int next_y = jogador_y;
 
         for (i = 0; i < numPortasFase2; i++) {
-            if (next_x == portas_fase2[i].x && next_y == portas_fase2[i].y && portas_fase2[i].estaTrancada) {
+            if (next_x == portas_fase2[i].x && next_y == portas_fase2[i].y && portas_fase2[i].estaTrancadafase2) {
                 return; 
             }
         }
@@ -428,7 +401,7 @@ void interacao_fase2() {
     int i;
     for (i = 0; i < numChavesFase2; i++) {
         if (jogador_x == posicoes_chaves_fase2[i].x && jogador_y == posicoes_chaves_fase2[i].y) {
-            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase2[i].chaveID);
+            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase2[i].chaveIDfase2);
             Sleep(500);
 
             int j;
@@ -439,9 +412,9 @@ void interacao_fase2() {
 
             int k;
             for (k = 0; k < numPortasFase2; k++) {
-                if (posicoes_chaves_fase2[i].chaveID == portas_fase2[k].portaID) {
-                    portas_fase2[k].estaTrancada = 0; 
-                    printf("Você destrancou a porta com a chave %d!\n", posicoes_chaves_fase2[i].chaveID);
+                if (posicoes_chaves_fase2[i].chaveIDfase2 == portas_fase2[k].portaIDfase2) {
+                    portas_fase2[k].estaTrancadafase2 = 0; 
+                    printf("Você destrancou a porta com a chave %d!\n", posicoes_chaves_fase2[i].chaveIDfase2);
                     Sleep(500);
 
                     mapa_fase2[portas_fase2[k].y][portas_fase2[k].x] = '=';
@@ -451,23 +424,6 @@ void interacao_fase2() {
             return;
         }
     }
-}
-
-int verificar_teleporte() {
-    int i;
-    for (i = 0; i < numTeletransportes; i++) {
-        if (jogador_x == teletransportes[i].x && jogador_y == teletransportes[i].y) {
-            int j;
-            for (j = 0; j < numTeletransportes; j++) {
-                if (j != i && teletransportes[j].teleporteID == teletransportes[i].teleporteID) {
-                    jogador_x = teletransportes[j].x;
-                    jogador_y = teletransportes[j].y;
-                    return 1;
-                }
-            }
-        }
-    }
-    return 0;
 }
 
 void game_loop_fase2() {
