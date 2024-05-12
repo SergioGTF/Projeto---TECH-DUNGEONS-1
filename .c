@@ -747,8 +747,8 @@ void show_tutorial() {
 	printf(" O = Botão (interagir ao ficar em cima).\n");
 	printf(" # = Espinho (reinicia fase ao tocar).\n");
 	printf(" > = Teletransporte (em pares).\n");
-	printf(" ¬ = Monstro nível 1 (movimento aleatório).\n");
-	printf(" K = Monstro nível 2 (segue jogador).\n");
+	printf(" X = Monstro nível 1 (movimento aleatório).\n");
+	printf(" V = Monstro nível 2 (segue jogador).\n");
 	printf(" Pressione qualquer tecla para continuar.\n");
     getch();
 }
