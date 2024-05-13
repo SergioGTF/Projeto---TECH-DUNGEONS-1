@@ -155,6 +155,12 @@ BotaoFase2 botaofase2[] = {
 
 int numBotaofase2 = sizeof(botaofase2) / sizeof(botaofase2[0]);
 
+typedef struct {
+    int x6, y6;
+} Monstro_nivel3;
+
+Monstro_nivel3 monstro3;
+
 void movimento_cima_fase1() {
 	int i;
     if (jogador_y > 0 && mapa_fase1[jogador_y - 1][jogador_x] != '*') {
@@ -298,7 +304,7 @@ void movimento_monstro_nivel2() {
         } else if (dy < 0 && mapa_fase2[monstro2.y2 - 1][monstro2.x2] != '*') {
             monstro2.y2--;
         }
-    }  else {
+    } else {
         int random_move = rand() % 4;
         	switch (random_move) {
             case 0:
@@ -321,8 +327,8 @@ void movimento_monstro_nivel2() {
                     monstro2.x2++;
                 }
             break;
-        	}
-    	}
+        }
+    }
 }
 
 void removePorta(int portaID) {
@@ -566,6 +572,73 @@ void interagir_com_botao() {
 	} 
 }
 
+void definir_posicao_inicial_monstro3() {
+    do {
+        monstro3.x6 = rand() % LARGURA_TELA_FASE2;
+        monstro3.y6 = rand() % ALTURA_TELA_FASE2;
+    } while (mapa_fase2[monstro3.y6][monstro3.x6] == '*' || 
+             (monstro3.x6 == jogador_x && monstro3.y6 == jogador_y) ||
+             (monstro3.x6 == monstro2.x2 && monstro3.y6 == monstro2.y2) ||
+             (monstro3.x6 == jogador_x && monstro3.y6 == jogador_y) ||
+             (monstro3.x6 == monstro2.x2 && monstro3.y6 == monstro2.y2) ||
+             (monstro3.x6 < 0 || monstro3.x6 >= LARGURA_TELA_FASE2 || monstro3.y6 < 0 || monstro3.y6 >= ALTURA_TELA_FASE2));
+}
+
+void movimento_monstro_nivel3() {
+    int dx = jogador_x - monstro3.x6;
+    int dy = jogador_y - monstro3.y6;
+	int i;
+    if (abs(dx) <= 1 && abs(dy) <= 1) {
+        if (dx > 0 && mapa_fase2[monstro3.y6][monstro3.x6 + 1] != '*') {
+            monstro3.x6++;
+        } else if (dx < 0 && mapa_fase2[monstro3.y6][monstro3.x6 - 1] != '*') {
+            monstro3.x6--;
+        } else if (dy > 0 && mapa_fase2[monstro3.y6 + 1][monstro3.x6] != '*') {
+            monstro3.y6++;
+        } else if (dy < 0 && mapa_fase2[monstro3.y6 - 1][monstro3.x6] != '*') {
+            monstro3.y6--;
+        }
+    } else {
+        int random_move = rand() % 4;
+        	switch (random_move) {
+            case 0:
+                if (mapa_fase2[monstro2.y2 - 1][monstro2.x2] != '*') {
+                    monstro2.y2--;
+                }
+               	break;
+            case 1:
+                if (mapa_fase2[monstro2.y2 + 1][monstro2.x2] != '*') {
+                    monstro2.y2++;
+                }
+                break;
+            case 2:
+                if (mapa_fase2[monstro2.y2][monstro2.x2 - 1] != '*') {
+                    monstro2.x2--;
+                }
+            break;
+            case 3:
+                if (mapa_fase2[monstro2.y2][monstro2.x2 + 1] != '*') {
+                    monstro2.x2++;
+                }
+            break;
+        }
+    }
+
+    for (i = 0; i < numTeleportes; i++) {
+        if (monstro3.x6 == teletransportes[i].x3 && monstro3.y6 == teletransportes[i].y3) {
+            monstro3.x6 = teletransportes[i].x4;
+            monstro3.y6 = teletransportes[i].y4;
+            break;
+        } else if (monstro3.x6 == teletransportes[i].x4 && monstro3.y6 == teletransportes[i].y4) {
+            monstro3.x6 = teletransportes[i].x3;
+            monstro3.y6 = teletransportes[i].y3;
+            return 1; 
+        }
+    }
+}
+
+
+
 int verificar_chegada_porta_transicao() {
     if (fase_atual == 1 && jogador_x == 0 && jogador_y == 13) {
         fase_atual = 2;
@@ -573,6 +646,7 @@ int verificar_chegada_porta_transicao() {
         jogador_y = ALTURA_TELA_FASE2 / 2;
         definir_posicao_inicial_monstro();
         definir_posicao_inicial_monstro2();
+		definir_posicao_inicial_monstro3();
 		verificar_teleporte();
 		interacao_fase2();
         return 1;
@@ -667,7 +741,9 @@ void loop_da_fase2() {
             			printf(">");
         			} else if (x == botaofase2[0].x5 && y == botaofase2[0].y5) {
                         printf("O");
-                    } else {
+                    } else if (x == monstro3.x6 && y == monstro3.y6) {
+                    	printf("Z");
+					} else {
                         int containsKeyfase2 = 0;
                         for (k = 0; k < numChavesfase2; k++) {
                             if (x == posicoes_chaves_fase2[k].x && y == posicoes_chaves_fase2[k].y) {
@@ -687,6 +763,7 @@ void loop_da_fase2() {
         }
         movimento_monstro_nivel1();
         movimento_monstro_nivel2();
+        movimento_monstro_nivel3();
         checa_dano_monstro();
         checa_dano_monstro2();
         desenhar_vida();
@@ -749,6 +826,7 @@ void show_tutorial() {
 	printf(" > = Teletransporte (em pares).\n");
 	printf(" X = Monstro nível 1 (movimento aleatório).\n");
 	printf(" V = Monstro nível 2 (segue jogador).\n");
+	printf(" Z = Monstro nível 3 (segue jogador e atravessa portais. \n");
 	printf(" Pressione qualquer tecla para continuar.\n");
     getch();
 }
