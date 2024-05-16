@@ -25,6 +25,8 @@ int contador_reiniciar_jogo = 0;
 int fase_atual = 1;
 int jogo_em_execucao = 1;
 
+void loop_da_fase2();
+
 char mapa_fase1[ALTURA_TELA_FASE1][LARGURA_TELA_FASE1] = {
    {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
    {'*',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*'},
@@ -632,7 +634,6 @@ void movimento_monstro_nivel3() {
         } else if (monstro3.x6 == teletransportes[i].x4 && monstro3.y6 == teletransportes[i].y4) {
             monstro3.x6 = teletransportes[i].x3;
             monstro3.y6 = teletransportes[i].y3;
-            return 1; 
         }
     }
 }
@@ -826,7 +827,7 @@ void show_tutorial() {
 	printf(" > = Teletransporte (em pares).\n");
 	printf(" X = Monstro nível 1 (movimento aleatório).\n");
 	printf(" V = Monstro nível 2 (segue jogador).\n");
-	printf(" Z = Monstro nível 3 (segue jogador e atravessa portais. \n");
+	printf(" Z = Monstro nível 3 (segue jogador e atravessa teletransportes. \n");
 	printf(" Pressione qualquer tecla para continuar.\n");
     getch();
 }
@@ -834,7 +835,7 @@ void show_tutorial() {
 int main() {
     setlocale(LC_ALL, "Portuguese");
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(console, 1);
+    SetConsoleTextAttribute(console, 2);
     CONSOLE_CURSOR_INFO cursor_info;
     GetConsoleCursorInfo(console, &cursor_info);
     cursor_info.bVisible = 0;
