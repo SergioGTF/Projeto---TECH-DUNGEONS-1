@@ -19,3 +19,8 @@ Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).
  X representa o Monstro nível 1 (movimento aleatório).
  V representa o  Monstro nível 2 (segue jogador).
  Z representa o Monstro nível 3 (segue jogador e atravessa portais).
+
+Integrantes:
+Sergio Gabriel
+Hillda Jullia
+
