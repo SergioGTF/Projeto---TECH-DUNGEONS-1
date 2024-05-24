@@ -296,7 +296,6 @@ void movimento_cima_fase1() {
                 return; 
             }
         }
-
         jogador_y--;
     }
 }
@@ -312,7 +311,6 @@ void movimento_esquerda_fase1() {
                 return; 
             }
         }
-
         jogador_x--;
     }
 }
@@ -780,12 +778,12 @@ int verificar_teleportefase2() {
     int i;
     for (i = 0; i < numTeleportesfase2; i++) {
         if (jogador_x == teletransportesfase2[i].x5 && jogador_y == teletransportesfase2[i].y5) {
-            jogador_x = teletransportesfase2[i].x5;
-            jogador_y = teletransportesfase2[i].y5;
-            return 1;
-        } else if (jogador_x == teletransportesfase2[i].x6 && jogador_y == teletransportesfase2[i].y6) {
             jogador_x = teletransportesfase2[i].x6;
             jogador_y = teletransportesfase2[i].y6;
+            return 1;
+        } else if (jogador_x == teletransportesfase2[i].x6 && jogador_y == teletransportesfase2[i].y6) {
+            jogador_x = teletransportesfase2[i].x5;
+            jogador_y = teletransportesfase2[i].y5;
             return 1; 
         }
     }
@@ -796,12 +794,12 @@ int verificar_teleportefase3() {
     int i;
     for (i = 0; i < numTeleportesfase3; i++) {
         if (jogador_x == teletransportesfase3[i].x11 && jogador_y == teletransportesfase3[i].y11) {
-            jogador_x = teletransportesfase3[i].x11;
-            jogador_y = teletransportesfase3[i].y11;
-            return 1;
-        } else if (jogador_x == teletransportesfase3[i].x12 && jogador_y == teletransportesfase3[i].y12) {
             jogador_x = teletransportesfase3[i].x12;
             jogador_y = teletransportesfase3[i].y12;
+            return 1;
+        } else if (jogador_x == teletransportesfase3[i].x12 && jogador_y == teletransportesfase3[i].y12) {
+            jogador_x = teletransportesfase3[i].x11;
+            jogador_y = teletransportesfase3[i].y11;
             return 1; 
         }
     }
@@ -932,6 +930,13 @@ void movimento_monstro_nivel3() {
     }
 }
 
+void mostrar_tela_vitoria() {
+    system("cls");
+    printf("Parabéns! Você chegou ao final da fase3!\n");
+    printf("Pressione qualquer tecla para continuar...\n");
+    getch();
+}
+
 int verificar_chegada_porta_transicao() {
     if (fase_atual == 1 && jogador_x == 0 && jogador_y == 13) {
         fase_atual = 2;
@@ -948,8 +953,6 @@ int verificar_chegada_porta_transicao() {
         jogador_x = LARGURA_TELA_FASE3 / 2;
         jogador_y = ALTURA_TELA_FASE3 / 2;
         return 1;
-    } else if (fase_atual == 3 && jogador_x == 29 && jogador_y == 27) {
-        mostrar_tela_vitoria();
     }
     return 0;
 }
@@ -959,13 +962,49 @@ void setar_cor_texto(int cor) {
     SetConsoleTextAttribute(hConsole, cor);
 }
 
-void mostrar_tela_vitoria() {
+
+void mostrar_menu() {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(console, 12);
+#define INICIAR '1'
+#define TUTORIAL '2'
+#define SAIR '3'
+
     system("cls");
-    printf("Parabéns! Você chegou ao final da fase3!\n");
-    printf("Pressione qualquer tecla para continuar...\n");
-    getch();
+    printf(" \n");
+    printf(" |TTTTT|  |EEEEE|  |CCCCC|  |H| |H|  |DDDD|   |U| |U|  |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|      /11111|\n");
+    printf("   \\T/    |E|      |C|      |H|_|H|  |D|  D|  |U| |U|  |NN||N|  |G|      |E|     |O| |O| |NN||N| |S|         /11||11|\n");
+    printf("   |T|    |EEEE|   |C|      |HHHHH|  |D|  D|  |U| |U|  |N|N|N|  |G| GG|  |EEEE|  |O| |O| |N|N|N| |SSSSS|         |11|\n");
+    printf("   |T|    |E|      |C|      |H| |H|  |D|  D|  |U| |U|  |N||NN|  |G|  G|  |E|     |O| |O| |N||NN|     |S|  	 |11|\n");
+    printf("   |T|    |EEEEE|  |CCCCC|  |H| |H|  |DDDD|    |UUU|   |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|  	 |11|\n");
+    printf("           |1| Iniciar jogo\n");
+    printf("           |2| Tutorial\n");
+    printf("           |3|  Sair\n");
 }
 
+
+void show_tutorial() {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(console, 5);
+    system("cls");
+    printf("           === TUTORIAL ===\n");
+    printf("- Objetivo: Passar por três níveis, coletando uma chave em cada para abrir uma porta.\n");
+    printf("- Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).\n");
+    printf(" - Símbolos:\n");
+    printf(" & = Jogador.\n");
+    printf(" * = Parede (não atravessável).\n");
+    printf(" @ = Chave.\n");
+    printf(" D = Porta fechada.\n");
+    printf(" = = Porta aberta (após pegar a chave).\n");
+    printf(" O = Botão (interagir ao ficar em cima).\n");
+    printf(" # = Espinho (reinicia fase ao tocar).\n");
+    printf(" > = Teletransporte (em pares).\n");
+    printf(" X = Monstro nível 1 (movimento aleatório).\n");
+    printf(" V = Monstro nível 2 (segue jogador).\n");
+    printf(" Z = Monstro nível 3 (segue jogador e atravessa portais. \n");
+    printf(" Pressione qualquer tecla para continuar.\n");
+    getch();
+}
 
 void loop_da_fase3() {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -1047,14 +1086,11 @@ void loop_da_fase3() {
         system("cls");
         if (verificar_chegada_porta_transicao()) {
             mostrar_tela_vitoria();
-            fase_atual = 3;
-            resetar_mapa_fase3(mapa_fase3);
+            jogo_em_execucao = 0;
             break;
         }
     }
-    if (fase_atual == 3) {
-        mostrar_menu(); 
-    }
+    mostrar_menu();
 }
 
 void loop_da_fase2() {
@@ -1227,49 +1263,6 @@ void loop_da_fase1() {
     if (fase_atual == 2) {
         loop_da_fase2();
     }
-}
-
-void mostrar_menu() {
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(console, 12);
-#define INICIAR '1'
-#define TUTORIAL '2'
-#define SAIR '3'
-
-    system("cls");
-    printf(" \n");
-    printf(" |TTTTT|  |EEEEE|  |CCCCC|  |H| |H|  |DDDD|   |U| |U|  |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|      /11111|\n");
-    printf("   \\T/    |E|      |C|      |H|_|H|  |D|  D|  |U| |U|  |NN||N|  |G|      |E|     |O| |O| |NN||N| |S|         /11||11|\n");
-    printf("   |T|    |EEEE|   |C|      |HHHHH|  |D|  D|  |U| |U|  |N|N|N|  |G| GG|  |EEEE|  |O| |O| |N|N|N| |SSSSS|         |11|\n");
-    printf("   |T|    |E|      |C|      |H| |H|  |D|  D|  |U| |U|  |N||NN|  |G|  G|  |E|     |O| |O| |N||NN|     |S|  	 |11|\n");
-    printf("   |T|    |EEEEE|  |CCCCC|  |H| |H|  |DDDD|    |UUU|   |N| |N|  |GGGGG|  |EEEEE| |OOOOO| |N| |N| |SSSSS|  	 |11|\n");
-    printf("           |1| Iniciar jogo\n");
-    printf("           |2| Tutorial\n");
-    printf("           |3|  Sair\n");
-}
-
-
-void show_tutorial() {
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(console, 5);
-    system("cls");
-    printf("           === TUTORIAL ===\n");
-    printf("- Objetivo: Passar por três níveis, coletando uma chave em cada para abrir uma porta.\n");
-    printf("- Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).\n");
-    printf(" - Símbolos:\n");
-    printf(" & = Jogador.\n");
-    printf(" * = Parede (não atravessável).\n");
-    printf(" @ = Chave.\n");
-    printf(" D = Porta fechada.\n");
-    printf(" = = Porta aberta (após pegar a chave).\n");
-    printf(" O = Botão (interagir ao ficar em cima).\n");
-    printf(" # = Espinho (reinicia fase ao tocar).\n");
-    printf(" > = Teletransporte (em pares).\n");
-    printf(" X = Monstro nível 1 (movimento aleatório).\n");
-    printf(" V = Monstro nível 2 (segue jogador).\n");
-    printf(" Z = Monstro nível 3 (segue jogador e atravessa portais. \n");
-    printf(" Pressione qualquer tecla para continuar.\n");
-    getch();
 }
 
 int main() {
