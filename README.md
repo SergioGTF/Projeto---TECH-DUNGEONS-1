@@ -24,6 +24,6 @@ Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).
  Z representa o Monstro nível 3 (segue jogador e atravessa portais).
 
 Integrantes:
-Sergio Gabriel
+Sergio Gabriel,
 Hillda Jullia
 
