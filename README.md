@@ -8,14 +8,14 @@ Objetivo:
 Passar por três níveis, coletando uma chave em cada para abrir uma porta.
 
 Como Jogar:
- Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).
- & = Jogador.
- @ = Chave.\n");
- D = Porta fechada.\n");
- = = Porta aberta (após pegar a chave).
- O = Botão (interagir ao ficar em cima).
- # = Espinho (reinicia fase ao tocar).
- > = Teletransporte (em pares).
- X = Monstro nível 1 (movimento aleatório).
- V = Monstro nível 2 (segue jogador).
- Z = Monstro nível 3 (segue jogador e atravessa portais. 
+Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).
+ & representa o Jogador.
+ @ representa a Chave.
+ D representa a Porta fechada.\n
+ = representa a  Porta aberta (após pegar a chave).
+ O representa o Botão (interagir ao ficar em cima).
+ #representa o Espinho (reinicia fase ao tocar).
+ > representa o Teletransporte (em pares).
+ X representa o Monstro nível 1 (movimento aleatório).
+ V representa o  Monstro nível 2 (segue jogador).
+ Z representa o Monstro nível 3 (segue jogador e atravessa portais).
