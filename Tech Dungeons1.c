@@ -246,7 +246,7 @@ typedef struct {
 } Teleportefase3;
 
 Teleportefase3 teletransportesfase3[] = {
-    {28, 11, 1, 13},  
+    {1, 37, 1, 1},  
 };
 
 int numTeleportesfase3 = sizeof(teletransportesfase3) / sizeof(teletransportesfase3[0]);
@@ -413,22 +413,22 @@ void movimento_monstro_nivel1() {
 
     switch (direcao) {
         case 0:
-            if (mapa_fase1[monstro.y3 - 1][monstro.x3] != '*' && monstro.y3 > 0) {
+            if (mapa_fase1[monstro.y3 - 1][monstro.x3] != '*' && monstro.y3 > 0 && mapa_fase1[monstro.y3 - 1][monstro.x3] != '#' && monstro.y3 > 0) {
                 monstro.y3--;
             }
             break;
         case 1:
-            if (mapa_fase1[monstro.y3 + 1][monstro.x3] != '*' && monstro.y3 < ALTURA_TELA_FASE1 - 1) {
+            if (mapa_fase1[monstro.y3 + 1][monstro.x3] != '*' && monstro.y3 < ALTURA_TELA_FASE1 - 1 && mapa_fase1[monstro.y3 + 1][monstro.x3] != '#' && monstro.y3 < ALTURA_TELA_FASE1 - 1) {
                 monstro.y3++;
             }
             break;
         case 2:
-            if (mapa_fase1[monstro.y3][monstro.x3 - 1] != '*' && monstro.x3 > 0) {
+            if (mapa_fase1[monstro.y3][monstro.x3 - 1] != '*' && monstro.x3 > 0 && mapa_fase1[monstro.y3][monstro.x3 - 1] != '#' && monstro.x3 > 0 ) {
                 monstro.x3--;
             }
             break;
         case 3:
-            if (mapa_fase1[monstro.y3][monstro.x3 + 1] != '*' && monstro.x3 < LARGURA_TELA_FASE1 - 1) {
+            if (mapa_fase1[monstro.y3][monstro.x3 + 1] != '*' && monstro.x3 < LARGURA_TELA_FASE1 - 1 && mapa_fase1[monstro.y3][monstro.x3 + 1] != '#' && monstro.x3 < LARGURA_TELA_FASE1 - 1) {
                 monstro.x3++;
             }
             break;
@@ -454,35 +454,35 @@ void movimento_monstro_nivel2() {
     int dy = jogador_y - monstro2.y4;
 
     if (abs(dx) <= 1 && abs(dy) <= 1) {
-        if (dx > 0 && mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '*') {
+        if (dx > 0 && mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '*' && dx > 0 && mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '#') {
             monstro2.x4++;
-        } else if (dx < 0 && mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '*') {
+        } else if (dx < 0 && mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '*' && dx < 0 && mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '#') {
             monstro2.x4--;
-        } else if (dy > 0 && mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '*') {
+        } else if (dy > 0 && mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '*' && dy > 0 && mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '#') {
             monstro2.y4++;
-        } else if (dy < 0 && mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '*') {
+        } else if (dy < 0 && mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '*' && dy < 0 && mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '#') {
             monstro2.y4--;
         }
     } else {
         int random_move = rand() % 4;
             switch (random_move) {
             case 0:
-                if (mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '*') {
+                if (mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '*' && mapa_fase2[monstro2.y4 - 1][monstro2.x4] != '#') {
                     monstro2.y4--;
                 }
                 break;
             case 1:
-                if (mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '*') {
+                if (mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '*' && mapa_fase2[monstro2.y4 + 1][monstro2.x4] != '#') {
                     monstro2.y4++;
                 }
                 break;
             case 2:
-                if (mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '*') {
+                if (mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '*' && mapa_fase2[monstro2.y4][monstro2.x4 - 1] != '#') {
                     monstro2.x4--;
                 }
             break;
             case 3:
-                if (mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '*') {
+                if (mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '*' && mapa_fase2[monstro2.y4][monstro2.x4 + 1] != '#') {
                     monstro2.x4++;
                 }
             break;
@@ -534,7 +534,7 @@ void interacao_fase1() {
 
     for (i = 0; i < numChavesfase1; i++) {
         if (jogador_x == posicoes_chaves_fase1[i].x2 && jogador_y == posicoes_chaves_fase1[i].y2) {
-            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase1[i].chaveIDfase1);
+            printf("Você pegou a chave %d!\n", posicoes_chaves_fase1[i].chaveIDfase1);
             Sleep(1000);
 
             int j;
@@ -564,7 +564,7 @@ void interacao_fase2() {
 
     for (i = 0; i < numChavesfase2; i++) {
         if (jogador_x == posicoes_chaves_fase2[i].x8 && jogador_y == posicoes_chaves_fase2[i].y8) {
-            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase2[i].chaveIDfase2);
+            printf("Você pegou a chave %d!\n", posicoes_chaves_fase2[i].chaveIDfase2);
             Sleep(1000);
 
             int j;
@@ -594,7 +594,7 @@ void interacao_fase3() {
 
     for (i = 0; i < numChavesfase3; i++) {
         if (jogador_x == posicoes_chaves_fase3[i].x14 && jogador_y == posicoes_chaves_fase3[i].y14) {
-            printf("Voce pegou a chave %d!\n", posicoes_chaves_fase3[i].chaveIDfase3);
+            printf("Você pegou a chave %d!\n", posicoes_chaves_fase3[i].chaveIDfase3);
             Sleep(1000);
 
             int j;
@@ -640,12 +640,12 @@ void resetar_mapa_fase3(char mapa_fase1[ALTURA_TELA_FASE3][LARGURA_TELA_FASE3]) 
 void checa_dano_espinho() {
     if (mapa_fase1[jogador_y][jogador_x] == '#') {
         jogador_vida--;
-        printf("Voce foi atingido por um espinho! Vidas restantes: %d\n", jogador_vida);
+        printf("Você foi atingido por um espinho! Vidas restantes: %d\n", jogador_vida);
         Sleep(1000);
 
         if (jogador_vida <= 0) {
             printf("|          GAME OVER!        |\n");
-            printf("|Você reiniciou o mapa 1 vez!|\n");
+            printf("|Você reiniciou o mapa!|\n");
             Sleep(1000);
             contador_reiniciar_jogo++;
             if (contador_reiniciar_jogo >= 3) {
@@ -660,12 +660,12 @@ void checa_dano_espinho() {
 void checa_dano_espinho_fase2() {
     if (mapa_fase2[jogador_y][jogador_x] == '#') {
         jogador_vida--;
-        printf("Voce foi atingido por um espinho! Vidas restantes: %d\n", jogador_vida);
+        printf("Você foi atingido por um espinho! Vidas restantes: %d\n", jogador_vida);
         Sleep(1000);
 
         if (jogador_vida <= 0) {
             printf("|          GAME OVER!        |\n");
-            printf("|Você reiniciou o mapa 1 vez!|\n");
+            printf("|Você reiniciou o mapa 1|\n");
             Sleep(1000);
             contador_reiniciar_jogo++;
             if (contador_reiniciar_jogo >= 3) {
@@ -685,7 +685,7 @@ void checa_dano_espinho_fase3() {
 
         if (jogador_vida <= 0) {
             printf("|          GAME OVER!        |\n");
-            printf("|Você reiniciou o mapa 1 vez!|\n");
+            printf("|Você reiniciou o mapa!|\n");
             Sleep(1000);
             contador_reiniciar_jogo++;
             if (contador_reiniciar_jogo >= 3) {
@@ -708,12 +708,12 @@ void resetar_jogo() {
 void checa_dano_monstro() {
     if (jogador_x == monstro.x3 && jogador_y == monstro.y3) {
         jogador_vida--;
-        printf("Voce foi atingido pelo monstro! Vidas restantes: %d\n", jogador_vida);
+        printf("Você foi atingido pelo monstro! Vidas restantes: %d\n", jogador_vida);
         Sleep(1000);
 
         if (jogador_vida <= 0) {
             printf("|          GAME OVER!        |\n");
-            printf("|Você reiniciou o mapa 1 vez!|\n");
+            printf("|Você reiniciou o mapa!|\n");
             Sleep(1000);
             contador_reiniciar_jogo++;
             if (contador_reiniciar_jogo >= 3) {
@@ -748,7 +748,7 @@ void checa_dano_monstro2() {
 void checa_dano_monstro3() {
     if (jogador_x == monstro3.x10 && jogador_y == monstro3.y10) {
         jogador_vida--;
-        printf("Voce foi atingido pelo monstro nível 2! Vidas restantes: %d\n", jogador_vida);
+        printf("Voce foi atingido pelo monstro nível 3 Vidas restantes: %d\n", jogador_vida);
         Sleep(1000);
 
         if (jogador_vida <= 0) {
@@ -812,11 +812,11 @@ void interagir_com_botaofase2() {
     if (jogador_x == botaofase2[0].x9 && jogador_y == botaofase2[0].y9) {
         switch (acao) {
             case 0:
-                printf("O botão causou dano ao jogador!\n");
+                printf("O botâo causou dano ao jogador!\n");
                 jogador_vida--;
                     if (jogador_vida <= 0) {
                         printf("|          GAME OVER!        |\n");
-                        printf("|Você reiniciou a fase!|\n");
+                        printf("|VocÊ reiniciou a fase!|\n");
                         Sleep(1000);
                         contador_reiniciar_jogo++;
                             if (contador_reiniciar_jogo >= 3) {
@@ -883,35 +883,35 @@ void movimento_monstro_nivel3() {
     int dy = jogador_y - monstro3.y10;
     int i;
     if (abs(dx) <= 1 && abs(dy) <= 1) {
-        if (dx > 0 && mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '*') {
+        if (dx > 0 && mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '*' && dx > 0 && mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '#') {
             monstro3.x10++;
-        } else if (dx < 0 && mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '*') {
+        } else if (dx < 0 && mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '*' && dx < 0 && mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '#') {
             monstro3.x10--;
-        } else if (dy > 0 && mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '*') {
+        } else if (dy > 0 && mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '*' && dy > 0 && mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '#') {
             monstro3.y10++;
-        } else if (dy < 0 && mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '*') {
+        } else if (dy < 0 && mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '*' && dy < 0 && mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '#') {
             monstro3.y10--;
         }
     } else {
         int random_move = rand() % 4;
             switch (random_move) {
             case 0:
-                if (mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '*') {
+                if (mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '*' && mapa_fase3[monstro3.y10 - 1][monstro3.x10] != '#') {
                     monstro3.y10--;
                 }
                 break;
             case 1:
-                if (mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '*') {
+                if (mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '*' && mapa_fase3[monstro3.y10 + 1][monstro3.x10] != '#') {
                     monstro3.y10++;
                 }
                 break;
             case 2:
-                if (mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '*') {
+                if (mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '*' && mapa_fase3[monstro3.y10][monstro3.x10 - 1] != '#') {
                     monstro3.x10--;
                 }
             break;
             case 3:
-                if (mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '*') {
+                if (mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '*' && mapa_fase3[monstro3.y10][monstro3.x10 + 1] != '#') {
                     monstro3.x10++;
                 }
             break;
@@ -920,12 +920,12 @@ void movimento_monstro_nivel3() {
 
     for (i = 0; i < numTeleportesfase3; i++) {
         if (monstro3.x10 == teletransportesfase3[i].x11 && monstro3.y10 == teletransportesfase3[i].y11) {
-            monstro3.x10 = teletransportesfase3[i].x11;
-            monstro3.y10 = teletransportesfase3[i].y11;
-            break;
-        } else if (monstro3.x10 == teletransportesfase3[i].x11 && monstro3.y10 == teletransportesfase3[i].y11) {
             monstro3.x10 = teletransportesfase3[i].x12;
             monstro3.y10 = teletransportesfase3[i].y12;
+            break;
+        } else if (monstro3.x10 == teletransportesfase3[i].x12 && monstro3.y10 == teletransportesfase3[i].y12) {
+            monstro3.x10 = teletransportesfase3[i].x11;
+            monstro3.y10 = teletransportesfase3[i].y11;
         }
     }
 }
@@ -952,6 +952,11 @@ int verificar_chegada_porta_transicao() {
         fase_atual = 3;
         jogador_x = LARGURA_TELA_FASE3 / 2;
         jogador_y = ALTURA_TELA_FASE3 / 2;
+        return 1;
+    } else if (fase_atual == 3 && jogador_x == 59 && jogador_y == 58) {  
+        fase_atual = 3;
+        jogo_em_execucao = 0;
+        mostrar_tela_vitoria();
         return 1;
     }
     return 0;
@@ -1061,6 +1066,7 @@ void loop_da_fase3() {
         movimento_monstro_nivel3();
         checa_dano_monstro();
         checa_dano_monstro2();
+        checa_dano_monstro3();
         desenhar_vida();
         verificar_teleportefase3();
         interacao_fase3();
@@ -1085,12 +1091,15 @@ void loop_da_fase3() {
         }  
         system("cls");
         if (verificar_chegada_porta_transicao()) {
-            mostrar_tela_vitoria();
+            fase_atual = 3;
             jogo_em_execucao = 0;
+            mostrar_tela_vitoria();
             break;
         }
     }
-    mostrar_menu();
+    if (jogo_em_execucao = 0) {
+        mostrar_menu();
+    }
 }
 
 void loop_da_fase2() {
@@ -1170,8 +1179,6 @@ void loop_da_fase2() {
             default:
                 break;
         }
-
-
         if (verificar_chegada_porta_transicao()) {
             fase_atual = 3;
             resetar_mapa_fase2(mapa_fase2);
