@@ -15,7 +15,7 @@ Comandos: W (cima), A (esquerda), S (baixo), D (direita), I (interagir).
  = representa a  Porta aberta (após pegar a chave).
  O representa o Botão (interagir ao ficar em cima).
  #representa o Espinho (reinicia fase ao tocar).
- > representa o Teletransporte (em pares).
+ >>representa o Teletransporte (em pares).
  X representa o Monstro nível 1 (movimento aleatório).
  V representa o  Monstro nível 2 (segue jogador).
  Z representa o Monstro nível 3 (segue jogador e atravessa portais).
